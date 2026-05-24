@@ -6475,7 +6475,7 @@
       window.lazyload_run = function (dom, is_first, check_dom_rect) {
         if (
           check_dom_rect &&
-          (document.body.clientWidth <= 0 || document.body.clientheight <= 0)
+          (document.body.clientWidth <= 0 || document.body.clientHeight <= 0)
         ) {
           return setTimeout(function () {
             window.lazyload_run(dom, is_first, check_dom_rect);

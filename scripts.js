@@ -33,7 +33,8 @@ function updateIcon() {
 
 /* ---- Play / Pause ---- */
 function safePlay() {
-  return audio.play()
+  return audio
+    .play()
     .then(() => {
       musicStarted = true;
       isPlaying = true;
@@ -55,7 +56,8 @@ function pauseMusic() {
 audio.addEventListener("ended", function () {
   musicIndex = (musicIndex + 1) % musicList.length;
   audio.src = musicList[musicIndex];
-  audio.play()
+  audio
+    .play()
     .then(() => {
       isPlaying = true;
       updateIcon();
@@ -72,21 +74,32 @@ function startMusicOnFirstGesture() {
   safePlay().catch(() => {});
 }
 
-document.addEventListener("touchstart", startMusicOnFirstGesture, { once: true, passive: true });
-document.addEventListener("mousedown", startMusicOnFirstGesture, { once: true });
+document.addEventListener("touchstart", startMusicOnFirstGesture, {
+  once: true,
+  passive: true,
+});
+document.addEventListener("mousedown", startMusicOnFirstGesture, {
+  once: true,
+});
 document.addEventListener("wheel", startMusicOnFirstGesture, { once: true });
 
 /* ---- Toggle button events ---- */
 toggleBtn.addEventListener("click", function (ev) {
   ev.preventDefault();
   if (!musicStarted) {
-    safePlay().catch(() => { isPlaying = false; updateIcon(); });
+    safePlay().catch(() => {
+      isPlaying = false;
+      updateIcon();
+    });
     return;
   }
   if (isPlaying) {
     pauseMusic();
   } else {
-    safePlay().catch(() => { isPlaying = false; updateIcon(); });
+    safePlay().catch(() => {
+      isPlaying = false;
+      updateIcon();
+    });
   }
 });
 
@@ -101,7 +114,6 @@ toggleBtn.addEventListener("keydown", function (e) {
     toggleBtn.click();
   }
 });
-
 
 /* ============================================
    PROTECT COPY / DEVTOOLS  (đã tắt để debug)

@@ -106,11 +106,11 @@
         this.rel = 'stylesheet';
       "
     />
-    <!-- <link
+    <link
       rel="preload"
       href="https://w.ladicdn.com/v5/source/ladipagev3.min.js?v=1773111777730"
       as="script"
-    /> -->
+    />
 
     <style id="style_lazyload" type="text/css">
       body.lazyload .ladi-overlay,
@@ -230,7 +230,7 @@
       window.lazyload_run = function (dom, is_first, check_dom_rect) {
         if (
           check_dom_rect &&
-          (document.body.clientWidth <= 0 || document.body.clientheight <= 0)
+          (document.body.clientWidth <= 0 || document.body.clientHeight <= 0)
         ) {
           return setTimeout(function () {
             window.lazyload_run(dom, is_first, check_dom_rect);

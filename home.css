@@ -700,19 +700,6 @@ a,
       }
 
 /* ===== style_animation ===== */
-@media (max-width: 767px) {
-        #GROUP1,
-        #IMAGE4,
-        #IMAGE5,
-        #IMAGE6,
-        #IMAGE7,
-        #HEADLINE3,
-        #IMAGE8,
-        #HEADLINE4 {
-          opacity: 0 !important;
-          pointer-events: none !important;
-        }
-      }
 
 /* ===== style_page ===== */
 body {

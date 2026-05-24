@@ -2100,10 +2100,10 @@ a,
         animation-fill-mode: both;
       }
 
-      .ladi-animation-hidden {
+      /* .ladi-animation-hidden {
         visibility: hidden !important;
         opacity: 0 !important;
-      }
+      } */
 
       .element-click-selected {
         cursor: pointer;

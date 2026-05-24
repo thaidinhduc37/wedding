@@ -104,29 +104,29 @@ toggleBtn.addEventListener("keydown", function (e) {
 
 
 /* ============================================
-   PROTECT COPY / DEVTOOLS
+   PROTECT COPY / DEVTOOLS  (đã tắt để debug)
    ============================================ */
 
 /* Block right-click context menu */
-window.oncontextmenu = function () { return false; };
+// window.oncontextmenu = function () { return false; };
 
 /* Block Ctrl+U (View Source) */
-document.onkeydown = function (e) {
-  if ((e.ctrlKey || e.metaKey) && e.which == 85) {
-    e.preventDefault();
-    return false;
-  }
-};
+// document.onkeydown = function (e) {
+//   if ((e.ctrlKey || e.metaKey) && e.which == 85) {
+//     e.preventDefault();
+//     return false;
+//   }
+// };
 
 /* Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U */
-document.addEventListener("keydown", function (event) {
-  if (
-    event.key === "F12" ||
-    (event.ctrlKey && event.shiftKey && event.key === "I") ||
-    (event.ctrlKey && event.shiftKey && event.key === "J") ||
-    (event.ctrlKey && event.key === "U")
-  ) {
-    event.preventDefault();
-    alert("Kh&#7943;ng &#272;&#791;c ph&#790;p!");
-  }
-});
+// document.addEventListener("keydown", function (event) {
+//   if (
+//     event.key === "F12" ||
+//     (event.ctrlKey && event.shiftKey && event.key === "I") ||
+//     (event.ctrlKey && event.shiftKey && event.key === "J") ||
+//     (event.ctrlKey && event.key === "U")
+//   ) {
+//     event.preventDefault();
+//     alert("Kh&#7943;ng &#272;&#791;c ph&#790;p!");
+//   }
+// });

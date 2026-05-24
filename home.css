@@ -672,13 +672,13 @@ a,
         z-index: 90000040;
       }
 
-      .ladi-lazyload {
+      /* .ladi-lazyload {
         background-image: none !important;
       }
 
       .ladi-list-paragraph ul li.ladi-lazyload:before {
         background-image: none !important;
-      }
+      } */
 
       .ladi-element.ladi-auto-scroll {
         overflow-x: auto;

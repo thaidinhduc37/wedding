@@ -24,13 +24,17 @@ const IMAGE_CONFIG = {
 
   /* ---- Section backgrounds (BOX) ---- */
   BOX4: "./images/box4.jpg",
-  BOX5: "./images/anhposter.jpg",
+  BOX5: "./images/box4.jpg",
   BOX11:
     "https://w.ladicdn.com/s750x700/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0009_25-20251010165309-zhafr.png",
   BOX17:
     "https://w.ladicdn.com/s750x650/6322a62f2dad980013bb5005/anh-chup-man-hinh-2026-01-30-luc-142326-20260130072401-vvobg.png",
 
   /* ---- Decorative elements ---- */
+  IMAGE3:
+    "https://w.ladicdn.com/s750x950/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0033_1-20251010160355-v6bgi.png",
+  IMAGE4:
+    "https://w.ladicdn.com/s750x950/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0033_1-20251010160355-v6bgi.png",
   IMAGE15:
     "https://w.ladicdn.com/s400x400/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0020_14-20251010160528-z-man.png",
   IMAGE14:
@@ -111,13 +115,7 @@ const IMAGE_CONFIG = {
     "https://w.ladicdn.com/s550x600/6322a62f2dad980013bb5005/thiep-phuong-anh-element_0014_rectangle-5-20250930175230-j01-r.png",
 
   /* ---- Decorative small ---- */
-  BOX12:
-    "https://w.ladicdn.com/s550x550/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0003_31-20251010170120-xdyii.png",
-  BOX15:
-    "https://w.ladicdn.com/s550x550/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0003_31-20251010170120-xdyii.png",
   BOX16:
-    "https://w.ladicdn.com/s550x550/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0003_31-20251010170120-xdyii.png",
-  BOX13:
     "https://w.ladicdn.com/s550x550/6322a62f2dad980013bb5005/thiep-thanh-dat-element_0003_31-20251010170120-xdyii.png",
 
   /* ---- Gallery images (8 items) ---- */

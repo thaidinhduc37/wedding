@@ -116,6 +116,253 @@ toggleBtn.addEventListener("keydown", function (e) {
 });
 
 /* ============================================
+   1. ANIMATION ON SCROLL
+   ============================================ */
+
+function initAnimationOnScroll() {
+  const animatedElements = document.querySelectorAll(".ladi-animation-hidden");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("ladi-animation-hidden");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  animatedElements.forEach((el) => observer.observe(el));
+}
+
+document.addEventListener("DOMContentLoaded", initAnimationOnScroll);
+
+/* ============================================
+   2. FORM SUBMIT HANDLER
+   ============================================ */
+
+function initFormHandler() {
+  const form = document.querySelector("#FORM2 .ladi-form");
+  if (!form) return;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = {
+      name: form.querySelector('input[name="name"]')?.value || "",
+      message: form.querySelector('textarea[name="message"]')?.value || "",
+      attendance: form.querySelector('select[name="form_item7"]')?.value || "",
+      guestType: form.querySelector('select[name="form_item9"]')?.value || "",
+      quantity: form.querySelector('input[placeholder="Số lượng tham dự cùng?"]')?.value || "",
+      timestamp: new Date().toISOString(),
+    };
+
+    if (!formData.name.trim()) {
+      alert("Vui lòng nhập tên!");
+      return;
+    }
+
+    if (!formData.attendance) {
+      alert("Vui lòng chọn xác nhận tham dự!");
+      return;
+    }
+
+    if (!formData.guestType) {
+      alert("Vui lòng chọn khách mời của ai!");
+      return;
+    }
+
+    saveFormData(formData);
+    openPopup("POPUP1");
+    form.reset();
+  });
+}
+
+function saveFormData(data) {
+  try {
+    const existingData = JSON.parse(localStorage.getItem("weddingForms")) || [];
+    existingData.push(data);
+    localStorage.setItem("weddingForms", JSON.stringify(existingData));
+    console.log("Form data saved:", data);
+  } catch (err) {
+    console.error("Error saving form data:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initFormHandler);
+
+/* ============================================
+   3. POPUP SHOW/HIDE LOGIC
+   ============================================ */
+
+function openPopup(popupId) {
+  const popup = document.getElementById(popupId);
+  const backdrop = document.getElementById("backdrop-popup");
+
+  if (!popup || !backdrop) return;
+
+  popup.parentElement.style.display = "block";
+  backdrop.style.display = "block";
+  document.body.style.overflow = "hidden";
+}
+
+function closePopup(popupId) {
+  const popup = document.getElementById(popupId);
+  const backdrop = document.getElementById("backdrop-popup");
+  const popupParent = popup?.parentElement;
+
+  if (popupParent) popupParent.style.display = "none";
+
+  const allPopups = document.querySelectorAll(".ladi-popup").length;
+  const visiblePopups = Array.from(document.querySelectorAll(".ladi-popup")).filter(
+    (p) => p.parentElement.style.display !== "none"
+  ).length;
+
+  if (visiblePopups === 0) {
+    backdrop.style.display = "none";
+    document.body.style.overflow = "";
+  }
+}
+
+function initPopupHandlers() {
+  const backdrop = document.getElementById("backdrop-popup");
+  if (backdrop) {
+    backdrop.addEventListener("click", function () {
+      document.querySelectorAll(".ladi-popup").forEach((popup) => {
+        if (popup.parentElement.style.display !== "none") {
+          closePopup(popup.id);
+        }
+      });
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initPopupHandlers);
+
+/* ============================================
+   4. GALLERY NAVIGATION
+   ============================================ */
+
+function initGallery() {
+  const gallery = document.getElementById("GALLERY2");
+  if (!gallery) return;
+
+  let currentIndex = 0;
+  const viewItems = gallery.querySelectorAll(".ladi-gallery-view-item");
+  const controlItems = gallery.querySelectorAll(".ladi-gallery-control-item");
+  const totalItems = viewItems.length;
+
+  function updateGallery(newIndex) {
+    viewItems.forEach((item) => item.classList.remove("selected"));
+    controlItems.forEach((item) => item.classList.remove("selected"));
+
+    viewItems[newIndex].classList.add("selected");
+    controlItems[newIndex].classList.add("selected");
+    currentIndex = newIndex;
+  }
+
+  controlItems.forEach((item) => {
+    item.addEventListener("click", function () {
+      const index = parseInt(this.dataset.index);
+      updateGallery(index);
+    });
+  });
+
+  const leftArrow = gallery.querySelector(".ladi-gallery-view-arrow-left");
+  const rightArrow = gallery.querySelector(".ladi-gallery-view-arrow-right");
+
+  if (leftArrow) {
+    leftArrow.addEventListener("click", function () {
+      const newIndex = (currentIndex - 1 + totalItems) % totalItems;
+      updateGallery(newIndex);
+    });
+  }
+
+  if (rightArrow) {
+    rightArrow.addEventListener("click", function () {
+      const newIndex = (currentIndex + 1) % totalItems;
+      updateGallery(newIndex);
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initGallery);
+
+/* ============================================
+   5. COUNTDOWN TIMER
+   ============================================ */
+
+function initCountdown() {
+  const countdownEl = document.getElementById("COUNTDOWN1");
+  if (!countdownEl) return;
+
+  const endTime = 1786161600000;
+  const countdownItems = countdownEl.querySelectorAll(
+    ".ladi-countdown-item"
+  );
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const timeLeft = Math.max(0, endTime - now);
+
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    const values = [days, hours, minutes, seconds];
+
+    countdownItems.forEach((item, index) => {
+      const span = item.querySelector("span");
+      if (span) {
+        span.textContent = String(values[index]).padStart(2, "0");
+      }
+    });
+
+    if (timeLeft > 0) {
+      requestAnimationFrame(updateCountdown);
+    }
+  }
+
+  updateCountdown();
+}
+
+document.addEventListener("DOMContentLoaded", initCountdown);
+
+/* ============================================
+   6. MUSIC AUTOPLAY ON SCROLL (Optional)
+   ============================================ */
+
+function initMusicAutoplayOnScroll() {
+  let musicTriggered = false;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !musicTriggered && musicStarted) {
+          if (!isPlaying) {
+            safePlay().catch(() => {});
+          }
+          musicTriggered = true;
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  const heroSection = document.getElementById("SECTION1");
+  if (heroSection) {
+    observer.observe(heroSection);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initMusicAutoplayOnScroll);
+
+/* ============================================
    PROTECT COPY / DEVTOOLS  (đã tắt để debug)
    ============================================ */
 

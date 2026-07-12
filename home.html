@@ -2797,7 +2797,7 @@
       }
 
       #BOX2 > .ladi-box {
-        background-image: url("https://w.ladicdn.com/s500x500/6322a62f2dad980013bb5005/anh-chup-man-hinh-2026-01-30-luc-141213-20260130071226-l8d26.png");
+        background-image: url("./images/anh9.jpg");
         background-size: cover;
         background-origin: content-box;
         background-position: center center;
@@ -4518,23 +4518,23 @@
       }
 
       #GALLERY2 .ladi-gallery .ladi-gallery-control-item[data-index="5"] {
-        background-image: url("./images/anh1.jpg");
+        background-image: url("./images/anh10.jpg");
       }
 
       #GALLERY2 .ladi-gallery .ladi-gallery-view-item[data-index="6"] {
-        background-image: url("./images/anh1.jpg");
+        background-image: url("./images/anh11.jpg");
       }
 
       #GALLERY2 .ladi-gallery .ladi-gallery-control-item[data-index="6"] {
-        background-image: url("./images/anh1.jpg");
+        background-image: url("./images/anh12.jpg");
       }
 
       #GALLERY2 .ladi-gallery .ladi-gallery-view-item[data-index="7"] {
-        background-image: url("./images/anh1.jpg");
+        background-image: url("./images/anh13.jpg");
       }
 
       #GALLERY2 .ladi-gallery .ladi-gallery-control-item[data-index="7"] {
-        background-image: url("./images/anh1.jpg");
+        background-image: url("./images/anh14.jpg");
       }
 
       #SECTION11 {
@@ -5280,6 +5280,53 @@
       let musicStarted = false;
       let isPlaying = false;
 
+      // -------------------
+      // Ghi nhớ trạng thái nhạc qua các lần reload
+      // -------------------
+      const MUSIC_STATE_KEY = "weddingMusicState";
+
+      function saveMusicState() {
+        try {
+          sessionStorage.setItem(
+            MUSIC_STATE_KEY,
+            JSON.stringify({
+              index: index,
+              time: audio.currentTime || 0,
+              playing: isPlaying,
+            }),
+          );
+        } catch (e) {}
+      }
+
+      function loadMusicState() {
+        try {
+          const raw = sessionStorage.getItem(MUSIC_STATE_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      const savedState = loadMusicState();
+      if (savedState) {
+        index = savedState.index % musicList.length;
+        audio.src = musicList[index];
+        audio.addEventListener(
+          "loadedmetadata",
+          function () {
+            if (savedState.time && savedState.time < audio.duration) {
+              audio.currentTime = savedState.time;
+            }
+          },
+          { once: true },
+        );
+      }
+
+      // Lưu trạng thái khi rời trang / reload
+      window.addEventListener("pagehide", saveMusicState);
+      window.addEventListener("beforeunload", saveMusicState);
+
       const toggleBtn = document.getElementById("music-toggle");
       const iconOn = document.getElementById("icon-on");
       const iconOff = document.getElementById("icon-off");
@@ -5307,6 +5354,7 @@
             musicStarted = true;
             isPlaying = true;
             updateIcon();
+            saveMusicState();
           })
           .catch((err) => {
             console.debug("Audio play blocked or failed:", err);
@@ -5318,6 +5366,7 @@
         audio.pause();
         isPlaying = false;
         updateIcon();
+        saveMusicState();
       }
 
       audio.addEventListener("ended", function () {
@@ -5338,8 +5387,16 @@
       // -------------------
       // Start music on first gesture (iOS + Desktop)
       // -------------------
+      // Nếu lần trước người dùng đã CHỦ ĐỘNG tắt nhạc thì không tự bật lại
+      let wantMusic = !savedState || savedState.playing !== false;
+
       function startMusicOnFirstGesture() {
-        if (musicStarted) return;
+        if (musicStarted || !wantMusic) return;
+        safePlay().catch(() => {});
+      }
+
+      // Thử phát tiếp ngay khi load (có thể bị trình duyệt chặn -> chờ gesture)
+      if (savedState && savedState.playing) {
         safePlay().catch(() => {});
       }
 
@@ -6343,45 +6400,6 @@
               <div id="HEADLINE96" class="ladi-element ladi-animation-hidden">
                 <h3 class="ladi-headline">Thank you<br /></h3>
               </div>
-            </div>
-          </div>
-          <div data-action="true" id="GROUP65" class="ladi-element">
-            <div class="ladi-group">
-              <div id="HEADLINE105" class="ladi-element ladi-animation-hidden">
-                <h3 class="ladi-headline ladi-transition">
-                  JMII Wedding Invitation
-                </h3>
-              </div>
-              <a
-                href="https://www.facebook.com/profile.php?id=61557384251600"
-                target="_blank"
-                id="IMAGE67"
-                class="ladi-element"
-              >
-                <div class="ladi-image ladi-transition">
-                  <div class="ladi-image-background"></div>
-                </div>
-              </a>
-              <a
-                href="https://www.tiktok.com/@thiepcuoi.online?is_from_webapp=1&sender_device=pc"
-                target="_blank"
-                id="IMAGE68"
-                class="ladi-element"
-              >
-                <div class="ladi-image ladi-transition">
-                  <div class="ladi-image-background"></div>
-                </div>
-              </a>
-              <a
-                href="https://zalo.me/0968378902"
-                target="_blank"
-                id="IMAGE69"
-                class="ladi-element"
-              >
-                <div class="ladi-image ladi-transition">
-                  <div class="ladi-image-background"></div>
-                </div>
-              </a>
             </div>
           </div>
         </div>

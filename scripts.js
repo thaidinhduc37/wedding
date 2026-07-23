@@ -7,6 +7,9 @@ var GUESTS = {
   vancun: "Gia đình chị Thanh Vân",
   tinhngoc: "Gia đình bạn Ngọc Tính",
   hanhthuy: "Gia đình bạn Thủy Hánh",
+  cuong501: "Gia đình bạn Cường",
+  an501: "Gia đình anh Ấn",
+  bac501: "Gia đình anh Bắc",
 };
 
 (function () {

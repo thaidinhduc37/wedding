@@ -23,7 +23,7 @@ var GUESTS = {
   hoailinh: "Gia đình bạn Hoài Linh",
   khanhhanh: "Gia đình bạn Khánh Hạnh",
   hoaquy: "Gia đình bạn Hoà Quý",
-  lananh: "Gia đình Lan Anh"
+  lananh: "Gia đình Lan Anh",
 
   // --- Khách mời kèm một nửa ---
   anhviet: "Anh Việt + Anh Phong",
@@ -48,7 +48,10 @@ var GUESTS = {
   // Ưu tiên path: /vancun → "vancun". Bỏ dấu / đầu & cuối.
   var key = "";
   try {
-    key = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, "");
+    key = decodeURIComponent(window.location.pathname).replace(
+      /^\/+|\/+$/g,
+      "",
+    );
   } catch (e) {}
 
   // Bỏ qua khi mở thẳng file (…/index.html, file://…) — lúc đó dùng ?key=

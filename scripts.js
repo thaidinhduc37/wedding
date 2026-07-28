@@ -4,9 +4,13 @@
    File này chỉ được nạp trong index.html (trang bìa),
    thay chữ "Quý khách" ở #HEADLINE5 bằng tên khách mời.
 
-   Link mời riêng: https://duclinh.vercel.app/?key=ten-khoa
-   Ví dụ:          https://duclinh.vercel.app/?key=vancun
-   Không có ?key   → giữ nguyên "Quý khách".
+   Link mời riêng: https://duclinh.vercel.app/ten-khoa
+   Ví dụ:          https://duclinh.vercel.app/vancun
+   Không khớp key  → giữ nguyên "Quý khách".
+
+   Dạng path (nhờ rewrite trong vercel.json) để Facebook/Messenger
+   không cắt mất key như khi dùng ?key=...
+   Link ?key=... cũ vẫn chạy được để không hỏng link đã gửi.
    ============================================ */
 
 var GUESTS = {
@@ -40,16 +44,25 @@ var GUESTS = {
 };
 
 (function () {
-  var params = new URLSearchParams(window.location.search);
-  var key = params.get("key");
-  if (key) {
-    var name = GUESTS[key];
-    if (name) {
-      var el = document.getElementById("HEADLINE5");
-      if (el) {
-        var p = el.querySelector("p");
-        if (p) p.innerHTML = name;
-      }
-    }
+  // Ưu tiên path: /vancun → "vancun". Bỏ dấu / đầu & cuối.
+  var key = "";
+  try {
+    key = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, "");
+  } catch (e) {}
+
+  // Bỏ qua khi mở thẳng file (…/index.html, file://…) — lúc đó dùng ?key=
+  if (key.indexOf("/") >= 0 || key.indexOf(".") >= 0) key = "";
+
+  // Link cũ dạng ?key=vancun
+  if (!key) {
+    key = new URLSearchParams(window.location.search).get("key") || "";
   }
+
+  var name = GUESTS[key.toLowerCase()];
+  if (!name) return;
+
+  var el = document.getElementById("HEADLINE5");
+  if (!el) return;
+  var p = el.querySelector("p");
+  if (p) p.textContent = name;
 })();

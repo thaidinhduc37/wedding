@@ -23,6 +23,7 @@ var GUESTS = {
   hoailinh: "Gia đình bạn Hoài Linh",
   khanhhanh: "Gia đình bạn Khánh Hạnh",
   hoaquy: "Gia đình bạn Hoà Quý",
+  lananh: "Gia đình Lan Anh"
 
   // --- Khách mời kèm một nửa ---
   anhviet: "Anh Việt + Anh Phong",

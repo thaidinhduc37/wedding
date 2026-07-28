@@ -26,7 +26,7 @@ var GUESTS = {
   lananh: "Gia đình Lan Anh",
 
   // --- Khách mời kèm một nửa ---
-  ngochuynh: "Chị Ngọc Huỳnh + ❤️",
+  ngochuynh: "Gia đình chị Ngọc Huỳnh",
   dinhsan: "Anh Đinh San + ❤️",
   anhviet: "Anh Việt + Anh Phong",
   chimai: "Chị Mai & ❤️",

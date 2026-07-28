@@ -21,7 +21,7 @@ var GUESTS = {
   hoaquy: "Gia đình bạn Hoà Quý",
 
   // --- Khách mời kèm một nửa ---
-  anhviet: "Anh Việt & ❤️",
+  anhviet: "Anh Việt + Anh Phong",
   chimai: "Chị Mai & ❤️",
   chimo: "Chị Mô & ❤️",
   anhhau: "Anh Hậu & ❤️",

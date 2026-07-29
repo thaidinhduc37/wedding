@@ -24,6 +24,9 @@ var GUESTS = {
   khanhhanh: "Gia đình bạn Khánh Hạnh",
   hoaquy: "Gia đình bạn Hoà Quý",
   lananh: "Gia đình Lan Anh",
+  chiquynh: "Gia đình chị Quỳnh",
+   bemeo: "Bé Mèo + ❤️",
+
 
   // --- Khách mời kèm một nửa ---
   ngochuynh: "Gia đình chị Ngọc Huỳnh",
